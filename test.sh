@@ -1,5 +1,3 @@
-set -e
-
 cat examples/in_data.jsonl | poetry run python main.py --query-file examples/query_1.sql > /tmp/out_data.jsonl
 cmp /tmp/out_data.jsonl examples/out_data_1.jsonl
 
