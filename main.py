@@ -21,6 +21,8 @@ def get_query(args: t.Any) -> str:
 def get_in_data() -> tuple[Data, list[str], dict[str, str]]:
     in_data: Data = []
     for row in sys.stdin:
+        if not row.strip():
+            continue
         in_data.append(json.loads(row))
     keys = list(in_data[0].keys())
     data_types = {key: infer_data_type(in_data, key) for key in keys}
@@ -68,7 +70,7 @@ def query_db(connection, query) -> Data:
     return out_data
 
 
-if __name__ == "__main__":
+def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("--query")
     arg_parser.add_argument("--query-file")
@@ -78,7 +80,11 @@ if __name__ == "__main__":
     connection = sqlite3.connect(":memory:")
 
     in_data, keys, data_types = get_in_data()
+    
     create_db_and_insert(connection, in_data, keys, data_types)
+    
     out_data = query_db(connection, query)
-    for row in out_data:
-        print(json.dumps(row))
+    print("\n".join(json.dumps(row) for row in out_data), end=None)
+
+if __name__ == "__main__":
+    main()

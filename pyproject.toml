@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "jsonquery"
+version = "0.1.0"
+description = "Query JSON using SQL"
+authors = ["Peter Byfield <byfield554@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+mypy = "^1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

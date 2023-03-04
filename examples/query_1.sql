@@ -1,0 +1,1 @@
+select name, age from data where age > 30
