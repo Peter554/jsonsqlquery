@@ -14,7 +14,7 @@ jobs:
       - name: Install Python dependencies
         run: poetry install
       - name: black
-        run: poetry run black .
+        run: poetry run black --check .
       - name: mypy
         run: poetry run mypy . 
       - name: test

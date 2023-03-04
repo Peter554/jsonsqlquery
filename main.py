@@ -80,11 +80,12 @@ def main():
     connection = sqlite3.connect(":memory:")
 
     in_data, keys, data_types = get_in_data()
-    
+
     create_db_and_insert(connection, in_data, keys, data_types)
-    
+
     out_data = query_db(connection, query)
     print("\n".join(json.dumps(row) for row in out_data), end=None)
+
 
 if __name__ == "__main__":
     main()
