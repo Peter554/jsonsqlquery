@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "jsonquery"
+name = "jsonsqlquery"
 version = "0.1.0"
 description = "Query JSON using SQL"
 authors = ["Peter Byfield <byfield554@gmail.com>"]
@@ -19,4 +19,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-jsonquery = 'jsonquery.main:main'
+jsonsqlquery = 'jsonsqlquery.main:main'
