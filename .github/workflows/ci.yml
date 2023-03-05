@@ -13,9 +13,5 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python -
       - name: Install Python dependencies
         run: poetry install
-      - name: black
-        run: poetry run black --check .
-      - name: mypy
-        run: poetry run mypy . 
-      - name: test
-        run: ./test.sh
+      - name: check
+        run: scripts/check.sh
