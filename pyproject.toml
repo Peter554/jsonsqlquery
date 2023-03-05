@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jsonsqlquery"
-version = "0.1.0"
+version = "0.1.1"
 description = "Query JSON using SQL"
 authors = ["Peter Byfield <byfield554@gmail.com>"]
 license = "MIT"

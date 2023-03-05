@@ -1,4 +1,5 @@
 import sys
+import pathlib
 import json
 import numbers
 import argparse
@@ -6,6 +7,30 @@ import sqlite3
 import typing as t
 
 Data = list[dict[str, t.Any]]
+
+
+def main():
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("--query")
+    arg_parser.add_argument("--query-file")
+    arg_parser.add_argument("--create-db")
+    args = arg_parser.parse_args()
+
+    if args.create_db and pathlib.Path(args.create_db).exists():
+        raise Exception(f"{args.create_db} already exists.")
+    connection = sqlite3.connect(args.create_db or ":memory:")
+
+    in_data, keys, data_types = get_in_data()
+
+    create_db_and_insert(connection, in_data, keys, data_types)
+
+    if args.create_db:
+        return
+
+    query = get_query(args)
+    out_data = query_db(connection, query)
+    for row in out_data:
+        print(json.dumps(row))
 
 
 def get_query(args: t.Any) -> str:
@@ -68,23 +93,6 @@ def query_db(connection, query) -> Data:
     for row in cursor.fetchall():
         out_data.append(dict(zip(out_keys, row)))
     return out_data
-
-
-def main():
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("--query")
-    arg_parser.add_argument("--query-file")
-    args = arg_parser.parse_args()
-
-    query = get_query(args)
-    connection = sqlite3.connect(":memory:")
-
-    in_data, keys, data_types = get_in_data()
-
-    create_db_and_insert(connection, in_data, keys, data_types)
-
-    out_data = query_db(connection, query)
-    print("\n".join(json.dumps(row) for row in out_data), end=None)
 
 
 if __name__ == "__main__":
