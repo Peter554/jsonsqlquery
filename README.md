@@ -37,9 +37,16 @@ Create a SQLite database:
 cat students.jsonl | jsonsqlquery --create-db students.db
 ```
 
-See the `examples/` directory.
+Python API:
+
+```py
+import jsonsqlquery
+
+students = [...]
+older_students = jsonsqlquery.query(students, "select name, age from data where age > 30")
+```
 
 ## Caveats
 
-* Booleans are cast to integers.
+* Data is cast to SQLite data types.
 * Data is assumed to fit in memory.

@@ -4,4 +4,7 @@ poetry run black --check .
 
 poetry run mypy . 
 
-scripts/test.sh
+poetry run pytest
+
+export PYTHONPATH=$PWD
+scripts/clitest.sh
